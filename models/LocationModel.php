@@ -12,12 +12,27 @@ class LocationModel
     private $box;
     /** @var string */
     private $section;
-    /** @var \UnitModel[] */
+    /** @var UnitModel[] */
     private $units;
+    /** @var integer */
+    private $maxUnitQuantity;
+    /** @var string */
+    private $type;
 
     public function toString()
     {
         return $this->column . $this->row . $this->box . $this->section;
+    }
+
+    public function isOpen()
+    {
+        $unitQuantity = 0;
+
+        foreach ($this->units as $unit) {
+            $unitQuantity += $unit->getQuantity();
+        }
+
+        return $unitQuantity < $this->maxUnitQuantity;
     }
 
     /**
@@ -93,7 +108,7 @@ class LocationModel
     }
 
     /**
-     * @return \UnitModel[]
+     * @return UnitModel[]
      */
     public function getUnits()
     {
@@ -101,12 +116,54 @@ class LocationModel
     }
 
     /**
-     * @param \UnitModel[] $units
+     * @param UnitModel[] $units
      * @return LocationModel
      */
     public function setUnits($units)
     {
         $this->units = $units;
+        return $this;
+    }
+
+    public function addUnit($unit)
+    {
+        $this->units[] = $unit;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxUnitQuantity()
+    {
+        return $this->maxUnitQuantity;
+    }
+
+    /**
+     * @param int $maxUnitQuantity
+     * @return LocationModel
+     */
+    public function setMaxUnitQuantity($maxUnitQuantity)
+    {
+        $this->maxUnitQuantity = $maxUnitQuantity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return LocationModel
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 }
