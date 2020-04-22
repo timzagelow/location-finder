@@ -12,6 +12,8 @@ class LocationModel
     private $box;
     /** @var string */
     private $section;
+    /** @var \UnitModel[] */
+    private $units;
 
     public function toString()
     {
@@ -87,6 +89,24 @@ class LocationModel
     public function setSection($section)
     {
         $this->section = $section;
+        return $this;
+    }
+
+    /**
+     * @return \UnitModel[]
+     */
+    public function getUnits()
+    {
+        return $this->units;
+    }
+
+    /**
+     * @param \UnitModel[] $units
+     * @return LocationModel
+     */
+    public function setUnits($units)
+    {
+        $this->units = $units;
         return $this;
     }
 }
